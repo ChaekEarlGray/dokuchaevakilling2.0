@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("фон3.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .register-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .register-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+        .register-container input[type="text"],
+        .register-container input[type="password"] {
+            width: 94%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .register-container input[type="radio"] {
+            margin-right: 10px;
+        }
+        .register-container label {
+            font-size: 16px;
+        }
+        .register-container button {
+            margin-top: 18px;
+            width: 100%;
+            padding: 10px;
+            background-color: #a7289f;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .register-container button:hover {
+            background-color: #a7289f;
+        }
+
+        #avtor{
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            background-color: #ffffff;
+            border: 3px solid #a7289f;
+            border-radius: 4px;
+            color: #a7289f;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #avtor:hover{
+            background-color: #ebebeb;
+        }
+
+        #message{
+            color: red;
+            text-align: center;
+        }
+        @media (max-width: 480px) {
+            .register-container {
+                padding: 15px;
+            }
+            .register-container h2 {
+                font-size: 20px;
+            }
+            .register-container input[type="text"],
+            .register-container input[type="password"] {
+                font-size: 14px;
+            }
+            .register-container button {
+                font-size: 14px;
+            }
+            body {background-image: url("adoptme.jpg");}
+            
+        }
+        footer {
+            position: fixed; /* Фиксируем футер внизу */
+            left: 0;
+            bottom: 0;
+            width: 100%; /* Занимает всю ширину экрана */
+            
+            background-size: cover; /* Изображение заполняет весь элемент */
+            background-position: center;
+            background-repeat: no-repeat; /* Запрет дублирования изображения */
+            text-align: center;
+            padding: 10px 0;
+        }
+      
+
+        @media (max-width: 768px) {
+
+        footer {
+            position: fixed;
+            margin-top: 20px;
+        }
+        body {background-image: url("adoptme.jpg");}
+        }
+
+
+        footer p {
+            margin: 0.5; /* Убираем отступы по умолчанию для элементов <p> */
+            line-height: 1; /* Устанавливаем высоту строки для уменьшения расстояния */
+        }
+
+        .footer-text {
+            position: absolute; /* Абсолютное позиционирование для текста */
+            bottom: -25px; /* Отступ от нижней границы карточки */
+            right: 270px; /* Отступ от правой границы карточки */
+            font-size: 12px; /* Меньший размер шрифта */
+            color: gray; /* Серый цвет текста */
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h2>Регистрация</h2>
+        <form id="registrationForm">
+            <input type="text" id="username" placeholder="Логин" required>
+            <input type="password" id="password" placeholder="Пароль" required>
+            <label>
+                <input type="radio" name="role" value="teacher" required> Учитель
+            </label>
+            <label>
+                <input type="radio" name="role" value="student"> Ученик
+            </label>
+            <button type="submit">Зарегистрироваться</button>
+            <button id="avtor" type="button">Авторизоваться</button> <!-- Изменено на type="button" -->
+        </form>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        // Обработка формы регистрации
+        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const role = document.querySelector('input[name="role"]:checked').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password, role }),
+                });
+
+                const data = await response.json();
+                document.getElementById('message').textContent = data.message;
+            } catch (error) {
+                console.error('Ошибка:', error);
+                document.getElementById('message').textContent = 'Ошибка при регистрации';
+            }
+        });
+
+        // Обработка кнопки "Авторизоваться"
+        document.getElementById('avtor').addEventListener('click', () => {
+            window.location.href = 'login.html'; // Перенаправление на страницу авторизации
+        });
+    </script>
+    <footer>
+        <p>Бубнова, Докучаева, Сердюк</p>
+        <p>2025</p>
+    </footer>
+</body>
+</html>

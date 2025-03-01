@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Панель управления</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("Rectangle\ 1.png");
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .dashboard-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .dashboard-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .dashboard-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #a7289f;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .dashboard-container button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h2>Добро пожаловать!</h2>
+        <p>Вы успешно авторизовались.</p>
+        <button onclick="window.location.href='language.html'">Перейти к выбору языка</button>
+    </div>
+</body>
+</html>
